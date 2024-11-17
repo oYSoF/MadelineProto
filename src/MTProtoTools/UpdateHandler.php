@@ -496,7 +496,7 @@ trait UpdateHandler
                 'updatePendingJoinRequests'     => new PendingJoinRequests($this, $update),
                 'updateBotChatInviteRequester'  => new BotChatInviteRequest($this, $update),
                 'updateBotCommands'             => new BotCommands($this, $update),
-                'updateBotPrecheckoutQuery'     => new Payment($this,$update),
+                'updateBotPrecheckoutQuery'     => new Payment($this, $update),
                 default => null
             };
         } catch (\Throwable $e) {

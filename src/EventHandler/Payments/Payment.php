@@ -37,7 +37,7 @@ class Payment extends Update
     /**Total amount in the smallest units of the currency (integer, not float/double). */
     public readonly int $totalAmount;
     /** @internal */
-    public function __construct(MTProto $API,array $rawRequestedPayment)
+    public function __construct(MTProto $API, array $rawRequestedPayment)
     {
         parent::__construct($API);
         $this->queryId = $rawRequestedPayment['query_id'];
@@ -72,6 +72,8 @@ class Payment extends Update
     /**
      * Reject pending payment.
      * note that you must call this function or accept function up to 10 seconds after user accept payment!!.
+     * @param string $errorMessage if the success isn’t set. Error message in human-readable form that explains the reason for failure to proceed with the checkout
+     *
      */
     public function reject(string $errorMessage): false
     {

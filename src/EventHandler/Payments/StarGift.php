@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace danog\MadelineProto\EventHandler\Payments;
 
@@ -28,7 +28,6 @@ final class StarGift extends IpcCapable implements \JsonSerializable
     public readonly ?int $startSell;
     /** Show timestamp for last buy of the gift */
     public readonly ?int $endSell;
-
 
     public function __construct(MTProto $API, array $rawStarGift)
     {

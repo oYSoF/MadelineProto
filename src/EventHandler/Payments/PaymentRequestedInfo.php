@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace danog\MadelineProto\EventHandler\Payments;
 
@@ -13,8 +13,7 @@ final class PaymentRequestedInfo implements JsonSerializable
         public readonly string $phone,
         /** User’s email address */
         public readonly string $email
-    )
-    {
+    ) {
 
     }
 

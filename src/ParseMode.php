@@ -25,9 +25,10 @@ enum ParseMode: string
     case MARKDOWN = 'Markdown';
     case TEXT = 'text';
     /** @internal */
-    public static function fromString(string $mode): ?string{
-        foreach (self::cases() as $case){
-            if(strtoupper($mode) === $case->name){
+    public static function fromString(string $mode): ?string
+    {
+        foreach (self::cases() as $case) {
+            if(strtoupper($mode) === $case->name) {
                 return $case->value;
             }
         }

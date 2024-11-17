@@ -28,11 +28,9 @@ final class TextWithEntities implements JsonSerializable
         public readonly array $entities,
         /** Whether to parse HTML or Markdown markup in the message */
         public readonly ?ParseMode $parseMode,
-    )
-    {
+    ) {
 
     }
-
 
     /** @internal */
     public function jsonSerialize(): mixed
