@@ -19,7 +19,9 @@ namespace danog\MadelineProto\EventHandler\Payments;
 use danog\MadelineProto\EventHandler\Update;
 use danog\MadelineProto\MTProto;
 
-/** This object contains information about an incoming pre-checkout query. */
+/**
+ * This object contains information about an incoming pre-checkout query.
+ */
 class Payment extends Update
 {
     /** Unique query identifier */
@@ -73,7 +75,6 @@ class Payment extends Update
      * Reject pending payment.
      * note that you must call this function or accept function up to 10 seconds after user accept payment!!.
      * @param string $errorMessage if the success isn’t set. Error message in human-readable form that explains the reason for failure to proceed with the checkout
-     *
      */
     public function reject(string $errorMessage): false
     {
