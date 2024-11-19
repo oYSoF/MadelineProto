@@ -51,7 +51,7 @@ class Payment extends Update
             $rawRequestedPayment['email'],
         ) : null;
         $this->shippingOptionId = $rawRequestedPayment['shipping_option_id'] ?? null;
-        $this->currency = $rawRequestedPayment['$currency'];
+        $this->currency = $rawRequestedPayment['currency'];
         $this->totalAmount = $rawRequestedPayment['total_amount'];
 
     }
