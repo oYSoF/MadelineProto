@@ -393,6 +393,9 @@ trait Files
         }
         await($promises, $cancellation);
         await($resPromises, $cancellation);
+        if ($totalSize === 0) {
+            throw new AssertionError('You uploaded an empty file!');
+        }
         $time = microtime(true) - $start;
         $speed = (int) ($totalSize * 8 / $time) / 1000000;
         if (!$size) {
