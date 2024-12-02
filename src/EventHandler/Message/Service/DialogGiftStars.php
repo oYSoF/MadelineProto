@@ -28,17 +28,17 @@ class DialogGiftStars extends ServiceMessage
         array $rawMessage,
         array $info,
         /** Three-letter ISO 4217 currency code */
-        public string $currency,
+        public readonly string $currency,
         /** Price of the gift in the smallest units of the currency (integer, not float/double). */
-        public int $amount,
+        public readonly int $amount,
         /** Amount of gifted stars */
-        public int $stars,
+        public readonly int $stars,
         /** If the gift was bought using a cryptocurrency, the cryptocurrency name. */
-        public ?string $cryptoCurrency,
+        public readonly ?string $cryptoCurrency,
         /** If the gift was bought using a cryptocurrency, price of the gift in the smallest units of a cryptocurrency. */
-        public ?int $cryptoAmount,
+        public readonly ?int $cryptoAmount,
         /** Identifier of the transaction, only visible to the receiver of the gift. */
-        public string $transactionId,
+        public readonly string $transactionId,
     ) {
         parent::__construct($API, $rawMessage, $info);
     }
