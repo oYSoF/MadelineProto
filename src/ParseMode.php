@@ -24,14 +24,4 @@ enum ParseMode: string
     case HTML = 'HTML';
     case MARKDOWN = 'Markdown';
     case TEXT = 'text';
-    /** @internal */
-    public static function fromString(string $mode): ?string
-    {
-        foreach (self::cases() as $case) {
-            if(strtoupper($mode) === $case->name) {
-                return $case->value;
-            }
-        }
-        return null;
-    }
 }

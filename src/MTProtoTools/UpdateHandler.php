@@ -717,7 +717,7 @@ trait UpdateHandler
                         $message['action']['message']['text'],
                         MessageEntity::fromRawEntities($message['action']['message']['entities']),
                         isset($message['action']['message']['parse_mode']) ?
-                            ParseMode::fromString($message['action']['message']['parse_mode'])
+                            ParseMode::from($message['action']['message']['parse_mode'])
                             : null
                     ) : null,
                     $message['action']['convert_stars'],
