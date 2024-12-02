@@ -14,6 +14,8 @@
  * @link https://docs.madelineproto.xyz MadelineProto documentation
  */
 
+namespace danog\MadelineProto\EventHandler\Message\Service;
+
 use danog\MadelineProto\EventHandler\Message\ServiceMessage;
 use danog\MadelineProto\MTProto;
 
