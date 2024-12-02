@@ -3,6 +3,8 @@
 namespace danog\MadelineProto\EventHandler\Payments;
 
 use JsonSerializable;
+use ReflectionClass;
+use ReflectionProperty;
 
 final class PaymentRequestedInfo implements JsonSerializable
 {

@@ -23,7 +23,7 @@
         "ext-pthreads": "*"
     },
     "require": {
-        "php-64bit": ">=8.3",
+        "php-64bit": ">=8.2",
         "danog/primemodule": "^1.0.13",
         "symfony/polyfill-mbstring": "*",
         "ext-json": "*",

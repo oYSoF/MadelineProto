@@ -19,18 +19,22 @@ namespace danog\MadelineProto\EventHandler\Message\Entities;
 use danog\MadelineProto\ParseMode;
 use danog\MadelineProto\StrTools;
 use JsonSerializable;
+use ReflectionClass;
+use ReflectionProperty;
 
 final class TextWithEntities implements JsonSerializable
 {
     public function __construct(
         /** Text */
         public readonly string $text,
-        /** Message entities for styled text */
+        /**
+         * Message entities for styled text.
+         * @var list<MessageEntity>
+         */
         public readonly array $entities,
         /** Whether to parse HTML or Markdown markup in the message */
         public readonly ?ParseMode $parseMode,
     ) {
-
     }
 
     /** @internal */
