@@ -17,6 +17,7 @@
 namespace danog\MadelineProto\EventHandler\Message\Entities;
 
 use danog\MadelineProto\ParseMode;
+use danog\MadelineProto\StrTools;
 use JsonSerializable;
 
 final class TextWithEntities implements JsonSerializable
@@ -41,5 +42,26 @@ final class TextWithEntities implements JsonSerializable
             $res[$prop->getName()] = $prop->getValue($this);
         }
         return $res;
+    }
+
+    protected readonly string $html;
+    protected readonly string $htmlTelegram;
+
+    /**
+     * Get an HTML version of the message.
+     *
+     * @psalm-suppress InaccessibleProperty
+     *
+     * @param bool $allowTelegramTags Whether to allow telegram-specific tags like tg-spoiler, tg-emoji, mention links and so on...
+     */
+    public function getHTML(bool $allowTelegramTags = false): string
+    {
+        if (!$this->entities) {
+            return StrTools::htmlEscape($this->text);
+        }
+        if ($allowTelegramTags) {
+            return $this->htmlTelegram ??= StrTools::entitiesToHtml($this->text, MessageEntity::fromRawEntities($this->entities), $allowTelegramTags);
+        }
+        return $this->html ??= StrTools::entitiesToHtml($this->text, MessageEntity::fromRawEntities($this->entities), $allowTelegramTags);
     }
 }
