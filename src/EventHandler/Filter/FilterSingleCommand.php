@@ -44,7 +44,7 @@ class FilterSingleCommand extends Filter
     public function apply(Update $update): bool
     {
         if($update instanceof Message) {
-            preg_match("/^\/(\w+)@([a-zA-Z](?:[a-zA-Z0-9]*(?:_[a-zA-Z0-9]+)?)*)$/", $update->message, $matches);
+            preg_match("/^(\w+)@([a-z](?:[a-z0-9]*(?:_[a-z0-9]+)?)*)$/i", $update->message, $matches);
             if(\in_array($matches[2], $this->usernames, true)) {
                 return (new FilterCommand($this->command, [CommandType::SLASH]))->apply($update);
             }
