@@ -34,7 +34,7 @@ class FilterSingleCommand extends Filter
     {
         $info = $API->getSelf();
         Assert::true($info['bot'], 'This filter can only be used by bots!');
-        $this->usernames ??= array_column($info['usernames'], 'username') ?? [$info['username']] ?? [];
+        $this->usernames ??= array_column($info['usernames'], 'username') ?? [$info['username'] ?? ''];
         return $this;
     }
     public function __construct(private readonly string $command)
