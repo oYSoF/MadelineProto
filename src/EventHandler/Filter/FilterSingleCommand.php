@@ -33,8 +33,8 @@ class FilterSingleCommand extends Filter
     public function initialize(EventHandler $API): Filter
     {
         $info = $API->getSelf();
-        Assert::true($info['bot'],'This filter can only be used by bots!');
-        $this->usernames = $info['usernames'] ?? [$info['username']] ?? [];
+        Assert::true($info['bot'], 'This filter can only be used by bots!');
+        $this->usernames ??= array_column($info['usernames'], 'username') ?? [$info['username']] ?? [];
         return $this;
     }
     public function __construct(private readonly string $command)
@@ -43,11 +43,11 @@ class FilterSingleCommand extends Filter
 
     public function apply(Update $update): bool
     {
-        if($update instanceof Message){
-            Assert::true(preg_match("/^\/(\w+)@([a-zA-Z](?:[a-zA-Z0-9]*(?:_[a-zA-Z0-9]+)?)*)$/", $update->message,$matches) === 1, "An invalid command was specified!");
+        if($update instanceof Message) {
+            Assert::true(preg_match("/^\/(\w+)@([a-zA-Z](?:[a-zA-Z0-9]*(?:_[a-zA-Z0-9]+)?)*)$/", $update->message, $matches) === 1, "An invalid command was specified!");
             Assert::true($matches[2] >= 3 && $matches[2] <= 32, "Username must contain between 3 and 32 characters!");
-            if(in_array($matches[2], $this->usernames, true)){
-                return (new FilterCommand($this->command,[CommandType::SLASH]))->apply($update);
+            if(\in_array($matches[2], $this->usernames, true)) {
+                return (new FilterCommand($this->command, [CommandType::SLASH]))->apply($update);
             }
             return false;
         }
