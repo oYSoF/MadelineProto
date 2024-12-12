@@ -21,6 +21,8 @@ use danog\MadelineProto\EventHandler;
 use danog\MadelineProto\EventHandler\CommandType;
 use danog\MadelineProto\EventHandler\Message;
 use danog\MadelineProto\EventHandler\Update;
+use danog\MadelineProto\RPCError\FloodWaitError;
+use danog\MadelineProto\RPCErrorException;
 use Webmozart\Assert\Assert;
 
 /**
