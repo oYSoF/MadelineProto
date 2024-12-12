@@ -21,12 +21,10 @@ use danog\MadelineProto\EventHandler;
 use danog\MadelineProto\EventHandler\CommandType;
 use danog\MadelineProto\EventHandler\Message;
 use danog\MadelineProto\EventHandler\Update;
-use danog\MadelineProto\RPCError\FloodWaitError;
-use danog\MadelineProto\RPCErrorException;
 use Webmozart\Assert\Assert;
 
 /**
- * Allow only messages containing the specified command, optionally postfixed with the bot's username
+ * Allow only messages containing the specified command, optionally postfixed with the bot's username.
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 class FilterBotCommand extends Filter
