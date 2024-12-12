@@ -24,7 +24,7 @@ use danog\MadelineProto\EventHandler\Update;
 use Webmozart\Assert\Assert;
 
 /**
- * Allow only messages containing the specified command.
+ * Allow only messages containing the specified command, optionally postfixed with the bot's username
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 class FilterBotCommand extends Filter
@@ -34,7 +34,7 @@ class FilterBotCommand extends Filter
     {
         $info = $API->getSelf();
         Assert::true($info['bot'], 'This filter can only be used by bots!');
-        $this->usernames ??= array_column($info['usernames'], 'username') ?? [$info['username'] ?? ''];
+        $this->usernames ??= array_column($info['usernames'] ?? '', 'username') ?? [$info['username'] ?? ''];
         return $this;
     }
     public function __construct(private readonly string $command)
