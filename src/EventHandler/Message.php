@@ -199,7 +199,7 @@ abstract class Message extends AbstractMessage
         if ($this->commandType = CommandType::tryFrom($this->message[0] ?? '')) {
             $space = strpos($this->message, ' ', 1) ?: \strlen($this->message);
             $args = explode(' ', substr($this->message, $space+1));
-            $this->command = explode('@', substr($this->message, 1, $space-1))[0];
+            $this->command = substr($cmd = substr($this->message, 1, $space-1),0,strpos($cmd,"@"));
             $this->commandArgs = $args === [''] ? [] : $args;
         } else {
             $this->command = null;
