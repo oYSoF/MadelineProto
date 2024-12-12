@@ -27,7 +27,7 @@ use Webmozart\Assert\Assert;
  * Allow only messages containing the specified command.
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-class FilterSingleCommand extends Filter
+class FilterBotCommand extends Filter
 {
     private readonly array $usernames;
     public function initialize(EventHandler $API): Filter
