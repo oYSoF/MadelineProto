@@ -19,6 +19,7 @@ namespace danog\MadelineProto\EventHandler\Filter;
 use AssertionError;
 use Attribute;
 use danog\MadelineProto\EventHandler;
+use danog\MadelineProto\EventHandler\CommandType;
 use danog\MadelineProto\EventHandler\Filter\Combinator\FiltersOr;
 use danog\MadelineProto\EventHandler\Update;
 use Webmozart\Assert\Assert;
@@ -34,8 +35,8 @@ class FilterBotCommand extends Filter
         $info = $API->getSelf();
         Assert::true($info['bot'], 'This filter can only be used by bots!');
         $usernames ??= array_column($info['usernames'] ?? '', 'username') ?? [$info['username'] ?? ''];
-        foreach ($usernames as $_) {
-            $filters[] = new FilterCommand($this->command);
+        foreach ($usernames as $username) {
+            $filters[] = new FilterCommand("{$this->command}@$username",[CommandType::SLASH]);
         }
         if(!empty($filters)) {
             return new FiltersOr(...$filters);
