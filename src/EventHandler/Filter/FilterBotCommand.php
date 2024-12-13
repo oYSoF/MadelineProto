@@ -29,16 +29,15 @@ use Webmozart\Assert\Assert;
 #[Attribute(Attribute::TARGET_METHOD)]
 class FilterBotCommand extends Filter
 {
-    private readonly array $usernames;
     public function initialize(EventHandler $API): Filter
     {
         $info = $API->getSelf();
         Assert::true($info['bot'], 'This filter can only be used by bots!');
-        $this->usernames ??= array_column($info['usernames'] ?? '', 'username') ?? [$info['username'] ?? ''];
-        foreach ($this->usernames as $_) {
+        $usernames ??= array_column($info['usernames'] ?? '', 'username') ?? [$info['username'] ?? ''];
+        foreach ($usernames as $_) {
             $filters[] = new FilterCommand($this->command);
         }
-        if(!empty($filters)){
+        if(!empty($filters)) {
             return new FiltersOr(...$filters);
         }
         return parent::initialize($API);
