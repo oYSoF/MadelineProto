@@ -34,13 +34,11 @@ class FilterBotCommand extends Filter
     public function initialize(EventHandler $API): Filter
     {
         Assert::true($API->isSelfBot(), 'This filter can only be used by bots!');
-        foreach ($API->getInfo('me', API::INFO_TYPE_USERNAMES) as $username) {
-            $filters[] = new FilterCommand("{$this->command}@$username", [CommandType::SLASH]);
+        foreach ($API->getInfo('me', API::INFO_TYPE_USERNAMES) as $_) {
+            $filters[] = new FilterCommand($this->command, [CommandType::SLASH]);
         }
-        if(!empty($filters)) {
-            return new FiltersOr(...$filters);
-        }
-        return parent::initialize($API);
+        Assert::notEmpty($filters ?? [], 'Filter commands must not be empty.');
+        return new FiltersOr(...$filters);
     }
     public function __construct(private readonly string $command)
     {
