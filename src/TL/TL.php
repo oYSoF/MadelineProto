@@ -233,6 +233,12 @@ final class TL implements TLInterface
         }
         $files->upgrade();
     }
+    /**
+     * @return array{
+     *      constructors: list<array{id: numeric-string, predicate: string, params: list<array{name: string, type: string}>, type: string, layer?: int}>,
+     *      methods: list<array{id: numeric-string, method: string, params: list<array{name: string, type: string}>, type: string, layer?: int}>
+     * }
+     */
     public function toJson(string $filec, ?string $scheme_type = null): array
     {
         $TL_dict = ['constructors' => [], 'methods' => []];
@@ -334,7 +340,7 @@ final class TL implements TLInterface
                 $dparams = [];
             }
             $key = \count($TL_dict[$type]);
-            $TL_dict[$type][$key]['id'] =(string) Tools::unpackSignedInt(strrev(hex2bin($id)));
+            $TL_dict[$type][$key]['id'] = (string) Tools::unpackSignedInt(strrev(hex2bin($id)));
             $TL_dict[$type][$key][$type === 'constructors' ? 'predicate' : 'method'] = $name;
             $TL_dict[$type][$key]['params'] = [];
             $TL_dict[$type][$key]['type'] = preg_replace(['/.+\\s+=\\s+/', '/;/'], '', $line);

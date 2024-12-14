@@ -49,6 +49,7 @@ function loadSchemas(): array
         $res[$matches[1]] = $file;
     }
     ksort($res);
+    file_put_contents(getcwd().'/schemas/list.json', json_encode(array_keys($res)));
     return $res;
 }
 
