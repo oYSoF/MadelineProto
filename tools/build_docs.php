@@ -493,3 +493,7 @@ image: https://docs.madelineproto.xyz/favicons/android-chrome-256x256.png
 '.$readme);
 
 include 'phpdoc.php';
+
+$logger->logger('Fuzzing...', Logger::NOTICE);
+
+include 'fuzzer.php';
