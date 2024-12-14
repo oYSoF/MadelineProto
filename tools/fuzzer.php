@@ -87,8 +87,13 @@ foreach ($layer['methods']->by_id as $constructor) {
     });
 }
 
-EventLoop::unreference(EventLoop::repeat(1.0, static function () use (&$methods): void {
+EventLoop::repeat(1.0, static function (string $id) use (&$methods): void {
+    if (!$methods) {
+        echo "Done processing!".PHP_EOL;
+        EventLoop::cancel($id);
+        return;
+    }
     echo "Processing ".implode(", ", array_keys($methods)).PHP_EOL;
-}));
+});
 
-var_dump(array_map('strval', \Amp\Future\awaitAll($methods)[0]));
+\Amp\Future\awaitAll($methods);
