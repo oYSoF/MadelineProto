@@ -9,7 +9,6 @@ use Revolt\EventLoop;
 use Webmozart\Assert\Assert;
 
 use function Amp\async;
-use function Amp\File\write;
 
 /*
 Copyright 2016-2020 Daniil Gentili
@@ -50,10 +49,10 @@ $bot->start();
 $bot->updateSettings((new TLSchema)->setFuzzMode(true));
 Assert::true($bot->isSelfBot(), "bot.madeline is not a bot!");
 
-$user = new \danog\MadelineProto\API('secret.madeline');
+$user = new \danog\MadelineProto\API('user.madeline');
 $user->start();
 $user->updateSettings((new TLSchema)->setFuzzMode(true));
-Assert::true($user->isSelfUser(), "secret.madeline is not a user!");
+Assert::true($user->isSelfUser(), "user.madeline is not a user!");
 
 $methods = [];
 foreach ($layer['methods']->by_id as $constructor) {
@@ -88,7 +87,7 @@ foreach ($layer['methods']->by_id as $constructor) {
     });
 }
 
-EventLoop::unreference(EventLoop::repeat(1.0, function () use (&$methods) {
+EventLoop::unreference(EventLoop::repeat(1.0, static function () use (&$methods): void {
     echo "Processing ".implode(", ", array_keys($methods)).PHP_EOL;
 }));
 
