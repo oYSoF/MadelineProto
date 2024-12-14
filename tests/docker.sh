@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
 
