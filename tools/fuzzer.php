@@ -29,7 +29,8 @@ set_error_handler(['\danog\MadelineProto\Exception', 'ExceptionErrorHandler']);
 /**
  * @internal
  */
-function getTLSchema(): TLSchema {
+function getTLSchema(): TLSchema
+{
     $layerFile = glob(__DIR__."/../src/TL_telegram_v*.tl")[0];
     return (new TLSchema)->setAPISchema($layerFile)->setSecretSchema('')->setFuzzMode(true);
 }
