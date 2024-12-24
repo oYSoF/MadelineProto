@@ -292,6 +292,7 @@ class MyEventHandler extends SimpleEventHandler
         $this->requestCall($message->senderId)->play(new RemoteUrl('http://icestreaming.rai.it/1.mp3'));
     }
 
+    // Plays incoming audio files into a Telegram call
     #[Handler]
     public function playAudio(Incoming&PrivateMessage&HasAudio $message): void
     {
