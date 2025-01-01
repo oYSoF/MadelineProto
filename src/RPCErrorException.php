@@ -13,7 +13,7 @@ declare(strict_types=1);
  * If not, see <http://www.gnu.org/licenses/>.
  *
  * @author    Daniil Gentili <daniil@daniil.it>
- * @copyright 2016-2023 Daniil Gentili <daniil@daniil.it>
+ * @copyright 2016-2025 Daniil Gentili <daniil@daniil.it>
  * @license   https://opensource.org/licenses/AGPL-3.0 AGPLv3
  * @link https://docs.madelineproto.xyz MadelineProto documentation
  */
@@ -437,6 +437,7 @@ class RPCErrorException extends \Exception
             'HASH_INVALID' => new self($rpc, 'The provided hash is invalid.', $code, $caller, $previous),
             'HASHTAG_INVALID' => new self($rpc, 'The specified hashtag is invalid.', $code, $caller, $previous),
             'HIDE_REQUESTER_MISSING' => new self($rpc, 'The join request was missing or was already handled.', $code, $caller, $previous),
+            'ID_EXPIRED' => new self($rpc, 'The passed prepared inline message ID has expired.', $code, $caller, $previous),
             'ID_INVALID' => new self($rpc, 'The passed ID is invalid.', $code, $caller, $previous),
             'IMAGE_PROCESS_FAILED' => new \danog\MadelineProto\RPCError\ImageProcessFailedError($code, $caller, $previous),
             'IMPORT_FILE_INVALID' => new self($rpc, 'The specified chat export file is invalid.', $code, $caller, $previous),
