@@ -7,14 +7,14 @@ sed 's/-O2/-O3 -g/g;s/strip --strip-all/echo/g' -i Dockerfile
 docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
 
 has_arm=0
-for f in 192.168.1.2 192.168.69.4; do
+#for f in 192.168.1.2 192.168.69.4; do
 	#if ping -c 1 $f; then
 		# Use emulation for everything
 		#docker buildx create --use --name wp --driver remote tcp://$f:1234
 		#has_arm=1
 		#break
 	#fi
-done
+#done
 
 has_riscv=0
 #if ping -c 1 192.168.69.206; then
