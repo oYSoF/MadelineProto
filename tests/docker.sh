@@ -56,15 +56,12 @@ join_images() {
 for f in alpine; do
 	for arch in $arches; do
 		cp tests/dockerfiles/Dockerfile.$f Dockerfile.$arch
-		if [ "$arch" == "riscv64" ]; then
-			sed "s|FROM .*|FROM danog/php:8.2-fpm-$f|" -i Dockerfile.$arch
-		else
-			sed "s|FROM .*||" -i Dockerfile.$arch
-			cat Dockerfile Dockerfile.$arch > Dockerfile.final
-			mv Dockerfile.final Dockerfile.$arch
-		fi
+
+		sed "s|FROM .*||" -i Dockerfile.$arch
+		cat Dockerfile Dockerfile.$arch > Dockerfile.final
+
 		docker buildx build --platform linux/$arch . \
-			-f Dockerfile.$arch \
+			-f Dockerfile.final \
 			-t danog/madelineproto:next-$f-$arch \
 			--cache-from danog/madelineproto:next-$f-$arch \
 			--cache-to type=inline \
