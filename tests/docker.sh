@@ -1,5 +1,9 @@
 #!/bin/bash -ex
 
+wget https://github.com/docker-library/php/raw/refs/heads/master/8.4/alpine3.21/fpm/Dockerfile
+
+sed 's/-O2/-O3 -g/g;s/strip --strip-all/echo/g' -i Dockerfile
+
 docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
 
 has_arm=0
@@ -53,8 +57,11 @@ for f in alpine; do
 	for arch in $arches; do
 		cp tests/dockerfiles/Dockerfile.$f Dockerfile.$arch
 		if [ "$arch" == "riscv64" ]; then
-			if [ "$f" == "debian" ]; then continue; fi
 			sed "s|FROM .*|FROM danog/php:8.2-fpm-$f|" -i Dockerfile.$arch
+		else
+			sed "s|FROM .*||" -i Dockerfile.$arch
+			cat Dockerfile Dockerfile.$arch > Dockerfile.final
+			mv Dockerfile.final Dockerfile.$arch
 		fi
 		docker buildx build --platform linux/$arch . \
 			-f Dockerfile.$arch \
