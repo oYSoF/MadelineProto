@@ -54,6 +54,7 @@ join_images() {
 }
 
 for f in alpine; do
+	pids=""
 	for arch in $arches; do
 		cp tests/dockerfiles/Dockerfile.$f Dockerfile.$arch
 		cp tests/dockerfiles/docker-php* .
@@ -67,8 +68,9 @@ for f in alpine; do
 			--cache-from danog/madelineproto:next-$f-$arch \
 			--cache-to type=inline \
 			--push &
+		pids="$pids $!"
 	done
-	wait
+	for pid in $pids; do wait $pid; done
 
 	join_images $f next-$f
 
