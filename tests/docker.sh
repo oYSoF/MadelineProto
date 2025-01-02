@@ -60,10 +60,10 @@ for f in alpine; do
 		cp tests/dockerfiles/docker-php* .
 
 		sed "s|FROM .*||" -i Dockerfile.$arch
-		cat Dockerfile Dockerfile.$arch > Dockerfile.final
+		cat Dockerfile Dockerfile.$arch > Dockerfile.final.$arch
 
 		docker buildx build --platform linux/$arch . \
-			-f Dockerfile.final \
+			-f Dockerfile.final.$arch \
 			-t danog/madelineproto:next-$f-$arch \
 			--cache-from danog/madelineproto:next-$f-$arch \
 			--cache-to type=inline \
