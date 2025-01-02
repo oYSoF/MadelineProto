@@ -28,6 +28,7 @@ use Closure;
 use IteratorAggregate;
 
 use function Amp\async;
+use function Amp\Future\awaitAll;
 
 /**
  * Stream duplicator.
@@ -41,7 +42,7 @@ use function Amp\async;
 final class StreamDuplicator implements ReadableStream, IteratorAggregate
 {
     use ReadableStreamIteratorAggregate;
-    /** @var list<WritableStream> */
+    /** @var array<WritableStream> */
     private array $outputs;
     /**
      * @param ReadableStream $input Input stream
@@ -61,10 +62,18 @@ final class StreamDuplicator implements ReadableStream, IteratorAggregate
                 $s->close();
             }
         } else {
-            foreach ($this->outputs as $s) {
-                if (!$s->isClosed()) {
-                    async($s->write(...), $res)->ignore();
+            $f = [];
+            foreach ($this->outputs as $k => $s) {
+                if ($s->isClosed()) {
+                    unset($this->outputs[$k]);
+                } else {
+                    $f []= async($s->write(...), $res);
                 }
+            }
+            if ($f) {
+                // Could be done in full async mode, but it makes close()s more complicated.
+                // Not using a cancellation, as writes cannot be cleanly cancelled.
+                awaitAll($f);
             }
         }
         return $res;
