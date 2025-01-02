@@ -56,6 +56,7 @@ join_images() {
 for f in alpine; do
 	for arch in $arches; do
 		cp tests/dockerfiles/Dockerfile.$f Dockerfile.$arch
+		cp tests/dockerfiles/docker-php* .
 
 		sed "s|FROM .*||" -i Dockerfile.$arch
 		cat Dockerfile Dockerfile.$arch > Dockerfile.final
