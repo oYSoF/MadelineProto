@@ -40,7 +40,7 @@ class RPCErrorException extends \Exception
     public static array $errorMethodMap = [];
     private static array $fetchedError = [];
 
-    /** @var array<string, true> */
+    /** @psalm-suppress MissingClassConstType */
     private const BAD = [
         'CDN_SALTS_EMPTY' => true,
         'BOT_POLLS_DISABLED' => true,
